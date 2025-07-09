@@ -1,8 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { logout } from '../features/auth/authSlice';
 
 function Header() {
+  const user = useAppSelector((state) => state.auth.user);
+  const token = useAppSelector((state) => state.auth.token);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  // Déconnexion : nettoie le state et redirige vers /sign-in
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/sign-in');
+  };
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -13,11 +26,29 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
-        <Link className="main-nav-item" to="/sign-in">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {/* Si utilisateur connecté, affiche prénom + bouton logout */}
+        {token && user ? (
+          <>
+            <Link className="main-nav-item" to="/user">
+              <i className="fa fa-user-circle"></i>
+              {user.firstName}
+            </Link>
+            <button
+              className="main-nav-item"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', display: 'flex', alignItems: 'center', padding: 0 }}
+              onClick={handleLogout}
+            >
+              <i className="fa fa-sign-out"></i>
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <Link className="main-nav-item" to="/sign-in">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        )}
       </div>
     </nav>
   );
