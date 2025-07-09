@@ -57,10 +57,16 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+  display: flex;
+  gap: 0.3rem;
 }
 
-.main-nav-item:hover {
+.main-nav-item:hover .main-nav-text {
   text-decoration: underline;
+}
+
+.main-nav-item i {
+  text-decoration: none !important;
 }
 
 .main-nav-logo {

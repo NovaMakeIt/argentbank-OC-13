@@ -26,27 +26,27 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         {/* Si utilisateur connecté, affiche prénom + bouton logout */}
         {token && user ? (
           <>
             <Link className="main-nav-item" to="/user">
               <i className="fa fa-user-circle"></i>
-              {user.firstName}
+              <span className="main-nav-text">{user.firstName}</span>
             </Link>
-            <button
+            <Link
               className="main-nav-item"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', display: 'flex', alignItems: 'center', padding: 0 }}
+              to="/"
               onClick={handleLogout}
             >
               <i className="fa fa-sign-out"></i>
-              Sign Out
-            </button>
+              <span className="main-nav-text">Sign Out</span>
+            </Link>
           </>
         ) : (
           <Link className="main-nav-item" to="/sign-in">
             <i className="fa fa-user-circle"></i>
-            Sign In
+            <span className="main-nav-text">Sign In</span>
           </Link>
         )}
       </div>
