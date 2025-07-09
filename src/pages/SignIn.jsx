@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { login, fetchUserProfile } from '../features/auth/authSlice';
@@ -12,6 +12,14 @@ function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const auth = useAppSelector((state) => state.auth);
+  const user = useAppSelector((state) => state.auth.user);
+
+  // Redirection si déjà connecté
+  useEffect(() => {
+    if (user) {
+      navigate('/user', { replace: true });
+    }
+  }, [user, navigate]);
 
   // Gestion de la soumission du formulaire
   const handleSubmit = async (e) => {
