@@ -7,9 +7,9 @@ export default function RequireAuth({ children }) {
   // On récupère le token depuis le state Redux
   const token = useAppSelector((state) => state.auth.token);
 
-  // Si pas de token, on redirige vers la page de connexion
+  // Si pas de token, on redirige vers la page principale
   if (!token) {
-    return <Navigate to="/sign-in" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // Sinon, on affiche le contenu protégé

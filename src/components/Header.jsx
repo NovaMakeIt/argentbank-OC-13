@@ -10,10 +10,10 @@ function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // Déconnexion : nettoie le state et redirige vers /sign-in
+  // Déconnexion : nettoie le state et redirige vers la page principale
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/sign-in');
+    navigate('/');
   };
 
   return (
