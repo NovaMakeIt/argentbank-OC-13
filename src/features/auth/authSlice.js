@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginAPI, fetchUserProfileAPI, updateUserProfileAPI } from './authAPI';
 
-// Get token from localStorage if present
+// Récupérer le token dans localStorage s'il est présent
 const tokenFromStorage = localStorage.getItem('token');
 const userFromStorage = localStorage.getItem('user');
 
@@ -13,6 +13,11 @@ const initialState = {
   remember: false,
 };
 
+/**
+ * Thunk asynchrone pour connecter un utilisateur.
+ * @param {Object} params - email, password, remember
+ * @returns {Promise<{token: string, remember: boolean}>}
+ */
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password, remember }, { rejectWithValue }) => {
@@ -28,6 +33,11 @@ export const login = createAsyncThunk(
   }
 );
 
+/**
+ * Thunk asynchrone pour récupérer le profil utilisateur à partir du token JWT.
+ * @param {string} token - JWT de l'utilisateur
+ * @returns {Promise<Object>} Profil utilisateur
+ */
 export const fetchUserProfile = createAsyncThunk(
   'auth/fetchUserProfile',
   async (token, { rejectWithValue }) => {
@@ -41,6 +51,11 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
+/**
+ * Thunk asynchrone pour mettre à jour le profil utilisateur.
+ * @param {Object} params - token JWT et nouvel objet profil
+ * @returns {Promise<Object>} Nouveau profil utilisateur
+ */
 export const updateUserProfile = createAsyncThunk(
   'auth/updateUserProfile',
   async ({ token, profile }, { rejectWithValue }) => {
@@ -54,10 +69,20 @@ export const updateUserProfile = createAsyncThunk(
   }
 );
 
+/**
+ * Slice Redux pour la gestion de l'authentification et du profil utilisateur.
+ * - Gère le token, le profil, les erreurs et le statut de chargement.
+ * @description Ce slice gère l'état de l'authentification et du profil utilisateur, y compris les actions de connexion, de déconnexion et de mise à jour du profil.
+ */
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    /**
+     * Action pour déconnecter l'utilisateur (reset du state et suppression du localStorage).
+     * @param {Object} state - State Redux
+     * @description Déconnecte l'utilisateur en réinitialisant le state et en supprimant les données du localStorage.
+     */
     logout: (state) => {
       state.token = null;
       state.user = null;
@@ -66,6 +91,12 @@ const authSlice = createSlice({
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     },
+    /**
+     * Action pour mémoriser la préférence "remember me".
+     * @param {Object} state - State Redux
+     * @param {Object} action - Action contenant le booléen
+     * @description Met à jour la préférence "remember me" dans le state.
+     */
     setRemember: (state, action) => {
       state.remember = action.payload;
     },

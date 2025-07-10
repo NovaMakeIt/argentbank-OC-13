@@ -1,12 +1,46 @@
-# React + Vite
+# Argent Bank – Application Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce projet est la partie frontend React de l’application bancaire “Argent Bank”.
 
-Currently, two official plugins are available:
+## Fonctionnalités principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Authentification utilisateur (login/logout) avec JWT
+- Affichage et édition du profil utilisateur
+- Navigation conditionnelle selon l’état de connexion
+- Gestion d’état globale avec Redux Toolkit
+- Protection des routes privées (RequireAuth)
+- UI responsive et accessible
 
-## Expanding the ESLint configuration
+## Démarrage rapide
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Installer les dépendances**
+   ```bash
+   npm install
+   ```
+
+2. **Lancer le serveur de développement**
+   ```bash
+   npm run dev
+   ```
+
+3. **Accéder à l’application**
+   - Ouvre [http://localhost:5173](http://localhost:5173) dans ton navigateur.
+
+## Structure du projet
+
+- `src/features/auth/` : logique d’authentification (Redux slice, API)
+- `src/pages/` : pages principales (`Home`, `SignIn`, `User`)
+- `src/components/` : composants réutilisables (`Header`, `Footer`, `RequireAuth`)
+- `src/app/store.js` : configuration du store Redux
+- `src/app/hooks.js` : hooks personnalisés pour Redux
+
+## Gestion de l’état (Redux)
+
+L’application utilise Redux Toolkit :
+- **Store** centralisé dans `src/app/store.js`
+- **Actions** et **reducers** dans `src/features/auth/authSlice.js`
+- **Hooks** personnalisés pour simplifier l’utilisation dans les composants
+
+## Spécification API
+
+La spécification Swagger des endpoints pour le User se trouve dans le fichier `swagger.yaml`.

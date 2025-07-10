@@ -127,7 +127,6 @@ function User() {
               <div className="profile-error-message">{localError || updateError}</div>
             )}
 
-            {/* Boutons alignés sous les inputs, même largeur, style personnalisé */}
             <div style={{ display: 'flex', gap: '1rem', width: '100%', justifyContent: 'center' }}>
               <button
                 className="edit-button profile-edit-save"

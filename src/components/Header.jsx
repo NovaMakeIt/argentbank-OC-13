@@ -4,6 +4,10 @@ import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { logout } from '../features/auth/authSlice';
 
+/**
+ * Composant Header : affiche la barre de navigation principale.
+ * Affiche les liens selon l'état de connexion utilisateur.
+ */
 function Header() {
   const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
@@ -11,7 +15,7 @@ function Header() {
   const navigate = useNavigate();
 
   // Déconnexion : nettoie le state et redirige vers la page principale
-  const handleLogout = () => {
+const handleLogout = () => {
     dispatch(logout());
     navigate('/');
   };

@@ -10,6 +10,10 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { fetchUserProfile } from './features/auth/authSlice';
 
+/**
+ * Composant racine de l'application React.
+ * Initialise le store, les routes et la récupération automatique du profil utilisateur.
+ */
 function App() {
   // Récupération automatique du profil utilisateur si token présent
   const dispatch = useAppDispatch();
