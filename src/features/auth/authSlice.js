@@ -3,11 +3,10 @@ import { loginAPI, fetchUserProfileAPI, updateUserProfileAPI } from './authAPI';
 
 // Récupérer le token dans localStorage s'il est présent
 const tokenFromStorage = localStorage.getItem('token');
-const userFromStorage = localStorage.getItem('user');
 
 const initialState = {
   token: tokenFromStorage || null,
-  user: userFromStorage ? JSON.parse(userFromStorage) : null,
+  user: null,
   status: 'idle',
   error: null,
   remember: false,
@@ -43,7 +42,6 @@ export const fetchUserProfile = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const data = await fetchUserProfileAPI(token);
-      localStorage.setItem('user', JSON.stringify(data.body));
       return data.body;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Fetch user failed');
@@ -61,7 +59,6 @@ export const updateUserProfile = createAsyncThunk(
   async ({ token, profile }, { rejectWithValue }) => {
     try {
       const data = await updateUserProfileAPI(token, profile);
-      localStorage.setItem('user', JSON.stringify(data.body));
       return data.body;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Update failed');
@@ -89,7 +86,6 @@ const authSlice = createSlice({
       state.status = 'idle';
       state.error = null;
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
     },
     /**
      * Action pour mémoriser la préférence "remember me".
