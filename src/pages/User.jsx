@@ -41,12 +41,12 @@ function User() {
   const handleSave = (e) => {
     e.preventDefault();
     setLocalError('');
-    // Nettoyage : trim + suppression espaces internes
-    const clean = (val) => val.trim().replace(/\s+/g, '');
+    // Nettoyage : trim uniquement (on garde les espaces internes)
+    const clean = (val) => val.trim();
     const cleanedFirst = clean(firstName);
     const cleanedLast = clean(lastName);
-    // Validation : lettres, tiret, apostrophe uniquement
-    const validName = (val) => /^[A-Za-zÀ-ÿ\-']+$/.test(val);
+    // Validation : lettres, tiret, apostrophe, espace uniquement
+    const validName = (val) => /^[A-Za-zÀ-ÿ\-'\s]+$/.test(val);
     if (!cleanedFirst || !cleanedLast) {
       setLocalError('Le prénom et le nom sont obligatoires.');
       return;
